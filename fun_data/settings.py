@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.inventory',
+    'inventory',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,6 +77,9 @@ WSGI_APPLICATION = 'fun_data.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'USER': 'root',
+        'PASSWORD': 'password',
+        'NAME': 'mysql_db'
     }
 }
 
