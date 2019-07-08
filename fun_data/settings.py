@@ -76,10 +76,10 @@ WSGI_APPLICATION = 'fun_data.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydb',
         'USER': 'root',
         'PASSWORD': 'password',
-        'NAME': 'mysql_db'
     }
 }
 
