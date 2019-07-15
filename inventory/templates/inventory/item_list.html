@@ -1,7 +1,14 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'inventory/style.css' %}">
 <a href= "../">Back</a>
 <p>List of songs</p>
-<body>
+<table>
+  <tr>
+    <th>Songs</th>
+  </tr>
   {% for song in songs %}
-    <p>{{ song.name }}</p>
+  <tr>
+    <td>{{ song.name }}</td>
+  </tr>
   {% endfor %}
-</body>
+</table>
