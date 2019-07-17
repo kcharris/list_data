@@ -1,9 +1,8 @@
 <p>Add a song here</p>
 <form action= "confirmation/" method="POST">
   {% csrf_token %}
-  <label for="song">Song Title: </label>
-  <input id="song" type= "text" name = "song">
-  <input type="submit" value= "OK">
+  {{ song_form }}
+  <input type='submit' value= 'OK'>
 </form>
 <p>Go to the list</p>
 <a href= "item_list/">Item list</a>
