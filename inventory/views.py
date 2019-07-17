@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.forms import *
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import Song, Album, Artist, SongForm
 
@@ -17,5 +18,3 @@ def confirmation(request):
   form = SongForm(request.POST)
   new_song = form.save()
   return HttpResponseRedirect('../')
-
-#def accounts(request):
