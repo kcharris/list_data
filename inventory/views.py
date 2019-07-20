@@ -3,6 +3,7 @@ from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from .models import Song, Album, Artist, SongForm
 
@@ -28,4 +29,11 @@ class CreateAccount(View):
     form2 = UserCreationForm(request.POST)
     if form2.is_valid():
       new_user = form2.save()
+    else:
+      return HttpResponseRedirect(reverse("create"))
     return HttpResponseRedirect(reverse("login"))
+
+class UserList(View):
+  def get(self, request):
+    users = User.objects.all()
+    return render(request, "inventory/users.html", {"users" : users})
