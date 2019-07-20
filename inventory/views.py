@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse
 
 from .models import Song, Album, Artist, SongForm
 
@@ -27,4 +28,4 @@ class CreateAccount(View):
     form2 = UserCreationForm(request.POST)
     if form2.is_valid():
       new_user = form2.save()
-    return HttpResponseRedirect("../login")
+    return HttpResponseRedirect(reverse("login"))
