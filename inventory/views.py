@@ -37,3 +37,8 @@ class UserList(View):
   def get(self, request):
     users = User.objects.all()
     return render(request, "inventory/users.html", {"users" : users})
+
+class account(View):
+  def get(self, request):
+    user = request.user.username
+    return render(request, "inventory/accounts.html", {"user" : user})
