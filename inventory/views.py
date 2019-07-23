@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from .models import Song, Album, Artist, SongForm
+from .models import Song, Album, Artist, SongForm, RatingForm
 
 # Create your views here.
 def index(request):
@@ -17,8 +17,8 @@ def item_list(request):
   return render(request, "inventory/item_list.html", {"songs" : songs})
 
 def confirmation(request):
-  form = SongForm(request.POST)
-  new_song = form.save()
+  song_form = SongForm(request.POST)
+  new_song = song_form.save()
   return HttpResponseRedirect('../')
 
 class CreateAccount(View):

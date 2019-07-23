@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Rating(models.Model):
-  score = models.IntegerField(verbose_name= 0, validators=[validators.MaxValueValidator(100), validators.MinValueValidator(0)])
+  score = models.IntegerField(validators=[validators.MaxValueValidator(100), validators.MinValueValidator(0)])
+
 
 
 class Song(models.Model):
@@ -28,8 +29,8 @@ class Artist(models.Model):
 class SongForm(ModelForm):
   class Meta:
     model = Song
-    fields = ['name']
-
+    fields = ['name', 'rating']
+    
 class RatingForm(ModelForm):
   class Meta:
     model = Rating
