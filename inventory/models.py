@@ -1,18 +1,13 @@
 from django.db import models
-from django.core import validators
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Rating(models.Model):
-  score = models.IntegerField(validators=[validators.MaxValueValidator(100), validators.MinValueValidator(0)])
-
-
-
 class Song(models.Model):
   name = models.CharField(max_length=60, unique=True)
-  rating = models.ManyToManyField(Rating)
+  rating = models.IntegerField(default= 0, validators= [MaxValueValidator(100), MinValueValidator(0)])
   users = models.ManyToManyField(User)
 
 
@@ -30,8 +25,4 @@ class SongForm(ModelForm):
   class Meta:
     model = Song
     fields = ['name', 'rating']
-    
-class RatingForm(ModelForm):
-  class Meta:
-    model = Rating
-    fields = ['score']
+

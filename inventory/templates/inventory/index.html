@@ -2,7 +2,6 @@
 <form action= "confirmation/" method="POST">
   {% csrf_token %}
   {{ song_form }}
-  {{ rating_form }}
   <input type='submit' value= 'OK'>
 </form>
 <p>Go to the list</p>

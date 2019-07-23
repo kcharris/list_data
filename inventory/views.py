@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from .models import Song, Album, Artist, SongForm, RatingForm
+from .models import Song, Album, Artist, SongForm
 
 # Create your views here.
 def index(request):
