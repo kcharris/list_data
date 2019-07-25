@@ -5,16 +5,19 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Song(models.Model):
-  name = models.CharField(max_length=60, unique=True)
-  rating = models.IntegerField(default= 0, validators= [MaxValueValidator(100), MinValueValidator(0)])
-  users = models.ManyToManyField(User)
 
 
 class Album(models.Model):
   name = models.CharField(max_length=60, unique=True)
-  songs = models.ManyToManyField(Song)
 
+  def __str__(self):
+    return self.name
+
+class Song(models.Model):
+  name = models.CharField(max_length=60, unique=True)
+  rating = models.IntegerField(default= 0, validators= [MaxValueValidator(100), MinValueValidator(0)])
+  users = models.ManyToManyField(User)
+  album = models.ForeignKey(Album, null = True, on_delete= models.CASCADE)
 
 class Artist(models.Model):
   name = models.CharField(max_length=60, unique=True)
