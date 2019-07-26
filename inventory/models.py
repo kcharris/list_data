@@ -15,7 +15,7 @@ class Album(models.Model):
 
 class Song(models.Model):
   name = models.CharField(max_length=60, unique=True)
-  rating = models.IntegerField(default= 0, validators= [MaxValueValidator(100), MinValueValidator(0)])
+  rating = models.IntegerField(blank = True, null = True, validators= [MaxValueValidator(100), MinValueValidator(0)])
   users = models.ManyToManyField(User)
   album = models.ForeignKey(Album, null = True, on_delete= models.SET_NULL)
 
