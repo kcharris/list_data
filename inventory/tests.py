@@ -9,43 +9,57 @@ from .views import *
 
 class SongModelTests(TestCase):
     def setUp(self):
-      """
-      creates a basic song
-      """
-      song = Song.objects.create(name='cats')
+        """
+        creates a basic song
+        """
+        song = Song.objects.create(name='cats')
 
     def test_no_duplicates_allowed(self):
-      """
-      makes sure there are no duplicate entries
-      """
-      with self.assertRaises(IntegrityError):
-        song2 = Song.objects.create(name="cats", rating=3)
-        
+        """
+        makes sure there are no duplicate entries
+        """
+        with self.assertRaises(IntegrityError):
+            song2 = Song.objects.create(name="cats", rating=3)
+
     def test_working_client_post(self):
-      """
-      tests to make sure the client is sending the correct responses
-      """
-      c = Client()
-      self.assertRedirects(c.post('/inventory/confirmation/', {'name' : 'seventeen', 'rating': '1'}), "/inventory/")
+        """
+        tests to make sure the client is sending the correct responses
+        """
+        c = Client()
+        self.assertRedirects(c.post('/inventory/confirmation/',
+                                    {'name': 'seventeen', 'rating': '1'}), "/inventory/")
 
     def test_over_max(self):
-      """
-      returns error if over max
-      """
-      c = Client()
-      with self.assertRaises(ValueError):
-        c.post('/inventory/confirmation/', {'name' : 'seventeen', 'rating': '101'})
-
+        """
+        returns error if over max
+        """
+        c = Client()
+        with self.assertRaises(ValueError):
+            c.post('/inventory/confirmation/',
+                   {'name': 'seventeen', 'rating': '101'})
 
     def test_under_min(self):
-      "returns error if under min"
-      c = Client()
-      c.post('/inventory/confirmation/', {'name' : 'seventeen', 'rating': '0'})
-      with self.assertRaises(ValueError):
-        c.post('/inventory/confirmation/', {'name' : 'seventeen', 'rating': '-1'})
+        "returns error if under min"
+        c = Client()
+        c.post('/inventory/confirmation/',
+               {'name': 'seventeen', 'rating': '0'})
+        with self.assertRaises(ValueError):
+            c.post('/inventory/confirmation/',
+                   {'name': 'seventeen', 'rating': '-1'})
 
     def test_song_added_to_album(self):
-      song = Song.objects.create(name="burgerdance")
-      album = Album.objects.create(name="jointeffort")
-      song.album = album
-      self.assertIs(song.album.name, "jointeffort")
+        song = Song.objects.create(name="burgerdance")
+        album = Album.objects.create(name="jointeffort")
+        song.album = album
+        self.assertIs(song.album.name, "jointeffort")
+
+    def test_songs_arent_deleted_with_album(self):
+        album = Album.objects.create(name="a")
+        album.save()
+        for x in range(5):
+            song = Song.objects.create(name= f"song{x}")
+            song.album = Album.objects.get(name = "a")
+            song.save()
+        song2 = Song.objects.get(name = "song2")
+        album.delete()
+        self.assertIn(song2 , Song.objects.all())
