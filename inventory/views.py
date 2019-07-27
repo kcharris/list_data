@@ -13,8 +13,15 @@ def index(request):
   return render(request, "inventory/index.html", {'song_form' : song_form})
 
 def item_list(request):  
-  songs = Song.objects.all()
-  return render(request, "inventory/item_list.html", {"songs" : songs})
+  if request.method == "GET":
+    songs = Song.objects.all()
+    return render(request, "inventory/item_list.html", {"songs" : songs})
+  if request.method == "POST":
+    form = request.POST
+    for x in form:
+      song = Song.objects.filter(name = x)
+      song.delete()
+    return HttpResponseRedirect(reverse(item_list))
 
 def confirmation(request):
   song_form = SongForm(request.POST)
