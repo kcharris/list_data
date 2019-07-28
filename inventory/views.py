@@ -25,7 +25,7 @@ def item_list(request):
 
 def confirmation(request):
   song_form = SongForm(request.POST)
-  new_song = song_form.save()
+  song_form.save()
   return HttpResponseRedirect('../')
 
 class CreateAccount(View):
@@ -35,7 +35,7 @@ class CreateAccount(View):
   def post(self, request):
     form2 = UserCreationForm(request.POST)
     if form2.is_valid():
-      new_user = form2.save()
+      form2.save()
     else:
       return HttpResponseRedirect(reverse("create"))
     return HttpResponseRedirect(reverse("login"))

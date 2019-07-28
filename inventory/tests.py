@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 
 from .models import Song, Album
-from .views import *
 # Create your tests here.
 
 
@@ -12,14 +11,14 @@ class SongModelTests(TestCase):
         """
         creates a basic song
         """
-        song = Song.objects.create(name='cats')
+        Song.objects.create(name='cats')
 
     def test_no_duplicates_allowed(self):
         """
         makes sure there are no duplicate entries
         """
         with self.assertRaises(IntegrityError):
-            song2 = Song.objects.create(name="cats", rating=3)
+            Song.objects.create(name="cats", rating=3)
 
     def test_working_client_post(self):
         """
