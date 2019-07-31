@@ -1,6 +1,8 @@
 from django.test import TestCase, Client
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
+from django.contrib.auth.models import User
+
 
 from .models import Song, Album
 # Create your tests here.
@@ -62,3 +64,10 @@ class SongModelTests(TestCase):
         song2 = Song.objects.get(name = "song2")
         album.delete()
         self.assertIn(song2 , Song.objects.all())
+class AccountListViewTest(TestCase):
+    def setUp(self):
+        User.objects.create_user(username = "testuser", password = "testpassword").save()
+    def test_user_signed_in(self):
+        c = Client()
+        c.get("inventory/account/item_list/")
+

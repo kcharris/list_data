@@ -28,6 +28,11 @@ def confirmation(request):
   song_form.save()
   return HttpResponseRedirect('../')
 
+class AccountItemList(View):
+  def get(self, request):
+    if User.is_authenticated:
+      return render(request, "inventory/account_item_list.html")
+
 class CreateAccount(View):
   def get(self, request):
     form = UserCreationForm()
