@@ -21,7 +21,7 @@ def item_list(request):
     for x in form:
       song = Song.objects.filter(name = x)
       song.delete()
-    return HttpResponseRedirect(reverse(item_list))
+    return HttpResponseRedirect(reverse("item_list"))
 
 def confirmation(request):
   song_form = SongForm(request.POST)
@@ -30,8 +30,10 @@ def confirmation(request):
 
 class AccountItemList(View):
   def get(self, request):
-    if User.is_authenticated:
+    if request.user.is_authenticated:
       return render(request, "inventory/account_item_list.html")
+    else:
+      return HttpResponseRedirect(reverse("login"))
 
 class CreateAccount(View):
   def get(self, request):
