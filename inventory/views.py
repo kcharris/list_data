@@ -31,7 +31,8 @@ def confirmation(request):
 class AccountItemList(View):
   def get(self, request):
     if request.user.is_authenticated:
-      return render(request, "inventory/account_item_list.html")
+      songs = Song.objects.filter(users = request.user)
+      return render(request, "inventory/account_item_list.html", {"songs": songs })
     else:
       return HttpResponseRedirect(reverse("login"))
 
