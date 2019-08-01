@@ -15,18 +15,20 @@ def index(request):
 def item_list(request):  
   if request.method == "GET":
     songs = Song.objects.all()
-    user = request.user.songs
+    user = request.user
     if request.user.is_authenticated:
       is_auth = True
     return render(request, "inventory/item_list.html", {"songs" : songs, "is_auth": is_auth, "user" : user})
   if request.method == "POST":
     form = request.POST
-    for x in form["delete"]:
-      song = Song.objects.filter(name = x)
-      song.delete()
-    for x in form["add"]:
-      song = Song.object.filter(name = x)
-      song.add(users = request.user)
+    if "delete" in form:
+      for x in form.getlist("delete"):
+        song = Song.objects.filter(name = x)
+        song.delete()
+    if "add" in form:
+      for x in form.getlist("add"):
+        song = Song.object.filter(name = x)
+        song.add(users = request.user)
     return HttpResponseRedirect(reverse("item_list"))
 
 def confirmation(request):

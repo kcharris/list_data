@@ -18,7 +18,7 @@
     <td>{{ song.name }}</td>
     <td>{{ song.rating }}</td>
     <td><input type= "checkbox" name = "delete" value = "{{ song.name }}" ></td>
-    {% if is_auth == True and song not in user %}
+    {% if is_auth == True and song.name not in user %}
     <td><input type= "checkbox" name = "add" value = "{{ song.name }}"></td>
     {% endif %}
   </tr>
