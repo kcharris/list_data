@@ -18,6 +18,9 @@ def item_list(request):
     if request.user.is_authenticated:
       is_auth = True
       usersongs = request.user.songs.all()
+    else:
+      is_auth = False
+      usersongs = []
     return render(request, "inventory/item_list.html", {"songs" : songs, "is_auth": is_auth, "usersongs": usersongs})
   if request.method == "POST":
     form = request.POST
