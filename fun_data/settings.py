@@ -126,3 +126,4 @@ STATIC_URL = '/static/'
 
 #UserLogin
 LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/inventory/"
+LOGOUT_REDIRECT_URL = "http://127.0.0.1:8000/inventory/"

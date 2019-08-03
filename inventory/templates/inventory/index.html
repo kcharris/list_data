@@ -1,10 +1,6 @@
-<p>Add a song here</p>
-<form action= "confirmation/" method="POST">
-  {% csrf_token %}
-  {{ song_form }}
-  <input type='submit' value= 'OK'>
-</form>
 <p>Go to the list</p>
 <a href= "item_list/">Item list</a>
-<p>Go to your account list</p>
-<a href= 'accounts/item_list/'>Account list</a>
+<p>Go to your account item list</p>
+<a href= "{% url 'accounts_item_list' %}">Account Item List</a>
+<p>Go to your account</p>
+<a href= 'accounts/'>Account</a>

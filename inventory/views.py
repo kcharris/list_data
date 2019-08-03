@@ -9,11 +9,12 @@ from .models import Song, Album, Artist, SongForm
 
 # Create your views here.
 def index(request):
-  song_form = SongForm()
-  return render(request, "inventory/index.html", {'song_form' : song_form})
+  
+  return render(request, "inventory/index.html")
 
 def item_list(request):  
   if request.method == "GET":
+    song_form = SongForm()
     songs = Song.objects.all()
     if request.user.is_authenticated:
       is_auth = True
@@ -21,7 +22,7 @@ def item_list(request):
     else:
       is_auth = False
       usersongs = []
-    return render(request, "inventory/item_list.html", {"songs" : songs, "is_auth": is_auth, "usersongs": usersongs})
+    return render(request, "inventory/item_list.html", {"songs" : songs, "is_auth": is_auth, "usersongs": usersongs, "song_form": song_form})
   if request.method == "POST":
     form = request.POST
     if "delete" in form:
@@ -37,7 +38,7 @@ def item_list(request):
 def confirmation(request):
   song_form = SongForm(request.POST)
   song_form.save()
-  return HttpResponseRedirect('../')
+  return HttpResponseRedirect(reverse("item_list"))
 
 class AccountItemList(View):
   def get(self, request):
@@ -66,5 +67,5 @@ class UserList(View):
 
 class account(View):
   def get(self, request):
-    user = request.user.username
+    user = request.user
     return render(request, "inventory/accounts.html", {"user" : user})
