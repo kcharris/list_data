@@ -19,9 +19,15 @@ class Song(models.Model):
   users = models.ManyToManyField(User, related_name = "songs", related_query_name= "song")
   album = models.ForeignKey(Album, null = True, on_delete= models.SET_NULL)
 
+  def __str__(self):
+    return self.name
+
 class Artist(models.Model):
   name = models.CharField(max_length=60, unique=True)
   albums = models.ManyToManyField(Album)
+
+  def __str__(self):
+    return self.name
 
 
 class SongForm(ModelForm):
