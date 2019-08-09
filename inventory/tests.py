@@ -2,8 +2,10 @@ from django.test import TestCase, Client
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
+from .views import AccountItemList
 from .models import Song, Album
 # Create your tests here.
 
@@ -28,7 +30,7 @@ class SongModelTests(TestCase):
         """
         c = Client()
         self.assertRedirects(c.post('/inventory/confirmation/',
-                                    {'name': 'seventeen', 'rating': '1'}), "/inventory/")
+                                    {'name': 'seventeen', 'rating': '1'}), reverse('item_list'))
 
     def test_over_max(self):
         """
@@ -64,10 +66,11 @@ class SongModelTests(TestCase):
         song2 = Song.objects.get(name = "song2")
         album.delete()
         self.assertIn(song2 , Song.objects.all())
-class AccountListViewTest(TestCase):
+class AccountItemListViewTest(TestCase):
     def setUp(self):
         User.objects.create_user(username = "testuser", password = "testpassword").save()
     def test_user_signed_in(self):
         c = Client()
-        c.get("inventory/account/item_list/")
-
+        c.login(username = "testuser", password = "testpassword" )
+        response = c.get("/inventory/accounts/item_list/")
+        self.assertEqual( response.resolver_match.func.__name__ , AccountItemList.as_view().__name__)
