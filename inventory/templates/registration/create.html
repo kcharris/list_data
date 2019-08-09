@@ -1,7 +1,10 @@
+{% extends "inventory/nav_bar.html" %}
+
+{% block content %}
 <form method= "post">
 {% csrf_token %}
 {{ form }}
 <br>
 <input type="submit" value= "Save">
 </form>
-<p>Already have an account? Go to <a href= "{% url 'login' %}">login</a> page.</p>
+{% endblock %}

@@ -1,6 +1,6 @@
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'inventory/style.css' %}">
-<a href= "{% url 'index' %}">Homepage</a>
+{% extends "inventory/nav_bar.html" %}
+
+{% block content %}
 <p>Add a song here</p>
 <form action= "{% url 'confirmation' %}" method="POST">
   {% csrf_token %}
@@ -34,3 +34,4 @@
   {% endfor %}
 </table>
 </form>
+{% endblock %}

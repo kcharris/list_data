@@ -1,6 +1,5 @@
-<p>Go to the list</p>
-<a href= "item_list/">Item list</a>
-<p>Go to your account item list</p>
-<a href= "{% url 'accounts_item_list' %}">Account Item List</a>
-<p>Go to your account</p>
-<a href= 'accounts/'>Account</a>
+{% extends "inventory/nav_bar.html" %}
+
+{% block content %}
+<h2>Welcome to the site</h2>
+{% endblock %}

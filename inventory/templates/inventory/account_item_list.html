@@ -1,5 +1,6 @@
-<p>Go to <a href= "{% url 'index' %}">homepage</a></p>
-<p>Go to <a href= "{% url 'accounts' %}">account</a></p>
+{% extends "inventory/nav_bar.html" %}
+
+{% block content %}
 <p>User Songs</p>
 <table>
   <th>Song</th>
@@ -11,3 +12,4 @@
   </tr>
   {% endfor %}
 </table>
+{% endblock %}
