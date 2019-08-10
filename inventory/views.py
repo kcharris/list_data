@@ -47,17 +47,23 @@ class AccountItemList(View):
       return render(request, "inventory/account_item_list.html", {"songs": songs })
     else:
       return HttpResponseRedirect(reverse("login"))
+  def post(self, request):
+    if "remove" in request.POST:
+      for x in request.POST.getlist("remove"):
+        song = Song.objects.get(name = x)
+        song.users.remove(request.user)
+      return HttpResponseRedirect(reverse("accounts_item_list"))
 
 class CreateAccount(View):
   def get(self, request):
     form = UserCreationForm()
-    return render(request, "registration/create.html", {"form" : form })
+    return render(request, "registration/register.html", {"form" : form })
   def post(self, request):
     form2 = UserCreationForm(request.POST)
     if form2.is_valid():
       form2.save()
     else:
-      return HttpResponseRedirect(reverse("create"))
+      return HttpResponseRedirect(reverse("register"))
     return HttpResponseRedirect(reverse("login"))
 
 class UserList(View):

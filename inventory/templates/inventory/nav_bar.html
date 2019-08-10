@@ -8,12 +8,14 @@
     <td><a href= "{% url 'logout' %}">Logout</a></td>
     {% else %}
     <td><a href= "{% url 'login' %}">Login</a></td>
+    <td><a href= "{% url 'register' %}">Create Account</a></td>
     {% endif %}
   </tr>
   <tr>
     <td><a href= "{% url 'item_list' %}">Music database</a></td>
-    <td><a href= "{% url 'accounts_item_list' %}">Users list</a></td>
-    
+    <td><a href= "{% url 'accounts_item_list' %}">{{request.user}}'s list</a></td>
+    <td><a href= "{% url 'users' %}">List of users</a></td>
+
   </tr>
 </table>
 {% block content %}
