@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from .models import Song, Album, Artist, SongForm
+from .models import Song, Album, Artist, SongForm, UserRating
 
 # Create your views here.
 def index(request):
@@ -33,6 +33,7 @@ def item_list(request):
       for x in form.getlist("add"):
         song = Song.objects.get(name = x)
         song.users.add(request.user)
+        UserRating.objects.create(user = request.user, song = song)
     return HttpResponseRedirect(reverse("item_list"))
 
 def confirmation(request):
@@ -44,7 +45,8 @@ class AccountItemList(View):
   def get(self, request):
     if request.user.is_authenticated:
       songs = Song.objects.filter(users = request.user)
-      return render(request, "inventory/account_item_list.html", {"songs": songs })
+      user_ratings = UserRating.objects.filter(user = request.user)
+      return render(request, "inventory/account_item_list.html", {"songs": songs, "user_ratings": user_ratings})
     else:
       return HttpResponseRedirect(reverse("login"))
   def post(self, request):

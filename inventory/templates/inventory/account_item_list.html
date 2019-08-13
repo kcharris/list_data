@@ -12,7 +12,13 @@
   {% for song in songs %}
   <tr>
     <td>{{ song.name }}</td>
-    <td>{{ song.rating }}</td>
+    <td>
+    {% for x in user_ratings %}
+      {% if x.song == song %}
+        {{ x.rating }}
+      {% endif %}
+    {% endfor %}
+    </td>
     <td>
       <input type="checkbox" name= "remove" value = "{{song.name}}">
     </td>
