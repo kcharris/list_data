@@ -4,7 +4,7 @@
 <p>Add a song here</p>
 <form action= "{% url 'confirmation' %}" method="POST">
   {% csrf_token %}
-  {{ song_form }}
+  <div>{{ song_form }}</div>
   <input type='submit' value= 'OK'>
 </form>
 <p>List of songs</p>

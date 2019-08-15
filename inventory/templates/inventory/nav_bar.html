@@ -1,22 +1,19 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'inventory/style.css' %}">
-<table>
-  <tr>
-    <td><a href= "{% url 'index' %}">Homepage</a></td>
-    <td><a href= "{% url 'accounts' %}">Account Page</a></td>
-    {% if request.user.is_authenticated %}
-    <td><a href= "{% url 'logout' %}">Logout</a></td>
-    {% else %}
-    <td><a href= "{% url 'login' %}">Login</a></td>
-    <td><a href= "{% url 'register' %}">Create Account</a></td>
-    {% endif %}
-  </tr>
-  <tr>
-    <td><a href= "{% url 'item_list' %}">Music database</a></td>
-    <td><a href= "{% url 'accounts_item_list' %}">{{request.user}}'s list</a></td>
-    <td><a href= "{% url 'users' %}">List of users</a></td>
 
-  </tr>
-</table>
+<div class="Title">Welcome to LIST</div>
+<div class= "table">
+    <div class = "index"><a href= "{% url 'index' %}">Homepage</a></div>
+    <div class = "account"><a href= "{% url 'accounts' %}">Account Page</a></div>
+    {% if request.user.is_authenticated %}
+    <div class = "logout"><a href= "{% url 'logout' %}">Logout</a></div>
+    {% else %}
+    <div class = 'login'><a href= "{% url 'login' %}">Login</a></div>
+    <div class = "register"><a href= "{% url 'register' %}">Create Account</a></div>
+    {% endif %}
+    <div class = "item_list"><a href= "{% url 'item_list' %}">Music database</a></div>
+    <div class = "accounts_item_list"><a href= "{% url 'accounts_item_list' %}">{{request.user}}'s list</a></div>
+    <div class = "users"><a href= "{% url 'users' %}">List of users</a></div>
+</div>
 {% block content %}
 {% endblock %}

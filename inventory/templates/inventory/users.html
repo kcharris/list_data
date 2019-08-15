@@ -1,6 +1,10 @@
+{% extends "inventory/nav_bar.html" %}
+
+{% block content %}
 <h3>List of users</h3>
 
 {% for user in users %}
-  {{user.username}}
+  <div>{{user.username}}</div>
   <br>
 {% endfor %}
+{% endblock %}
