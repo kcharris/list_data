@@ -33,7 +33,7 @@ def item_list(request):
       for x in form.getlist("add"):
         song = Song.objects.get(name = x)
         song.users.add(request.user)
-        UserRating.objects.create(user = request.user, song = song)
+        UserRating.objects.create(user = request.user, song = song, rating = song.rating)
     return HttpResponseRedirect(reverse("item_list"))
 
 def confirmation(request):
@@ -54,6 +54,8 @@ class AccountItemList(View):
       for x in request.POST.getlist("remove"):
         song = Song.objects.get(name = x)
         song.users.remove(request.user)
+        UserRating.objects.filter(user = request.user, song = song).delete()
+
       return HttpResponseRedirect(reverse("accounts_item_list"))
 
 class CreateAccount(View):

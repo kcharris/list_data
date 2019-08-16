@@ -15,7 +15,7 @@
     <td>
     {% for x in user_ratings %}
       {% if x.song == song %}
-        {{ x.rating }}
+        <input type="number" name = "new_rating" min= "0" max= "100" value = "{{ x.rating }}">
       {% endif %}
     {% endfor %}
     </td>
