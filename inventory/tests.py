@@ -74,3 +74,6 @@ class AccountItemListViewTest(TestCase):
         c.login(username = "testuser", password = "testpassword" )
         response = c.get("/inventory/accounts/item_list/")
         self.assertEqual( response.resolver_match.func.__name__ , AccountItemList.as_view().__name__)
+
+# class ItemListViewTest(TestCase):
+#     def setUp(self):

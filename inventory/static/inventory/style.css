@@ -9,7 +9,7 @@ table {
 table, th, td {
   border: 1px solid black;
 }
-div.Title {
+.Title {
   font-size: 30px;
   font-weight: bold;
   color: #abcdef;
@@ -18,7 +18,7 @@ body {
   background-color: beige;
   text-align: center;
 }
-.table {
+.navbar {
   display: grid;
   row-gap: 5px;
   width : fit-content;
@@ -28,4 +28,15 @@ body {
 }
 .table div {
   text-align: center;
+}
+.account_item_list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: fit-content;
+  background-color: black;
+  grid-gap: 2px;
+}
+.account_item_list div {
+  margin: initial;
+  background-color: white;
 }

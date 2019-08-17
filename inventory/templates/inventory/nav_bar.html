@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'inventory/style.css' %}">
 
 <div class="Title">Welcome to LIST</div>
-<div class= "table">
+<div class= "navbar">
     <div class = "index"><a href= "{% url 'index' %}">Homepage</a></div>
     <div class = "account"><a href= "{% url 'accounts' %}">Account Page</a></div>
     {% if request.user.is_authenticated %}
