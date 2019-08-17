@@ -6,7 +6,7 @@ from django.urls import reverse
 
 
 from .views import AccountItemList
-from .models import Song, Album
+from .models import Song, Album, UserRating
 # Create your tests here.
 
 
@@ -60,20 +60,39 @@ class SongModelTests(TestCase):
         album = Album.objects.create(name="a")
         album.save()
         for x in range(5):
-            song = Song.objects.create(name= f"song{x}")
-            song.album = Album.objects.get(name = "a")
+            song = Song.objects.create(name=f"song{x}")
+            song.album = Album.objects.get(name="a")
             song.save()
-        song2 = Song.objects.get(name = "song2")
+        song2 = Song.objects.get(name="song2")
         album.delete()
-        self.assertIn(song2 , Song.objects.all())
+        self.assertIn(song2, Song.objects.all())
+
+
 class AccountItemListViewTest(TestCase):
     def setUp(self):
-        User.objects.create_user(username = "testuser", password = "testpassword").save()
+        User.objects.create_user(
+            username="testuser", password="testpassword").save()
+
     def test_user_signed_in(self):
         c = Client()
-        c.login(username = "testuser", password = "testpassword" )
+        c.login(username="testuser", password="testpassword")
         response = c.get("/inventory/accounts/item_list/")
-        self.assertEqual( response.resolver_match.func.__name__ , AccountItemList.as_view().__name__)
+        self.assertEqual(response.resolver_match.func.__name__,
+                         AccountItemList.as_view().__name__)
 
-# class ItemListViewTest(TestCase):
-#     def setUp(self):
+
+class UserRatingModel(TestCase):
+    def setUp(self):
+        User.objects.create_user(
+            username="testuser", password="testpassword").save()
+        for x in range(5):
+            song = Song.objects.create(name= str(x))
+            song.user = User.objects.get(username="testuser")
+            UserRating.objects.create(user=song.user, song=song)
+
+    def test_change_user_rating(self):
+        song = Song.objects.get(name = "1")
+        rating = UserRating.objects.get(song=song)
+        rating.rating = 99
+        rating.save()
+        self.assertEqual(99, UserRating.objects.get(song=song).rating)

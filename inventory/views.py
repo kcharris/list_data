@@ -55,8 +55,17 @@ class AccountItemList(View):
         song = Song.objects.get(name = x)
         song.users.remove(request.user)
         UserRating.objects.filter(user = request.user, song = song).delete()
+    if "new_rating" in request.POST:
+      rating = request.POST.getlist("new_rating")
+      user_songs = request.POST.getlist('user_songs')
+      for x in range(len(rating)):
+        if rating[x] == "":
+          continue
+        user_rating_object = UserRating.objects.get(user = request.user, song = Song.objects.get(name = user_songs[x]))
+        user_rating_object.rating = rating[x]
+        user_rating_object.save()
 
-      return HttpResponseRedirect(reverse("accounts_item_list"))
+    return HttpResponseRedirect(reverse("accounts_item_list"))
 
 class CreateAccount(View):
   def get(self, request):

@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.forms import ModelForm
+from django.forms import ModelForm, TextInput
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -29,6 +29,7 @@ class UserRating(models.Model):
   rating = models.IntegerField(blank = True, null = True, validators= [MaxValueValidator(100), MinValueValidator(0)])
 
 
+
 class Artist(models.Model):
   name = models.CharField(max_length=60, unique=True)
   albums = models.ManyToManyField(Album)
@@ -38,7 +39,9 @@ class Artist(models.Model):
 
 
 class SongForm(ModelForm):
-  class Meta:
-    model = Song
-    fields = ['name', 'rating']
-
+    class Meta:
+      model = Song
+      fields = ['name', 'rating']
+      widgets = {
+        "name": TextInput(attrs={"autofocus": "on"})
+      }

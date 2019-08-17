@@ -2,7 +2,7 @@
 
 {% block content %}
 <p>User Songs</p>
-<form medivod= "POST">
+<form method= "POST">
 {% csrf_token %}
 <input type= "submit" value = "Modify selected?">
 <div class= "account_item_list">
@@ -15,6 +15,7 @@
     {% for x in user_ratings %}
       {% if x.song == song %}
         <input type="number" name = "new_rating" min= "0" max= "100" value = "{{ x.rating }}">
+        <input type="hidden" name = "user_songs" value = "{{ x.song }}">
       {% endif %}
     {% endfor %}
     </div>
