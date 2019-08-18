@@ -27,6 +27,7 @@ class UserRating(models.Model):
   song = models.ForeignKey(Song, on_delete= models.CASCADE)
   user = models.ForeignKey(User, on_delete= models.CASCADE)
   rating = models.IntegerField(blank = True, null = True, validators= [MaxValueValidator(100), MinValueValidator(0)])
+  priority = models.IntegerField(blank = True, default = 0, validators=[MaxValueValidator(100), MinValueValidator(0)])
 
 
 

@@ -59,6 +59,16 @@ class AccountItemList(View):
         user_rating_object = UserRating.objects.get(user = request.user, song = Song.objects.get(name = user_songs[x]))
         user_rating_object.rating = rating[x]
         user_rating_object.save()
+    if "priority" in request.POST:
+      priority = request.POST.getlist("priority")
+      user_songs = request.POST.getlist('user_songs')
+      for x in range(len(priority)):
+        if priority[x] == "":
+          continue
+        user_rating_object = UserRating.objects.get(user= request.user, song = Song.objects.get(name = user_songs[x]))
+        user_rating_object.priority = priority[x]
+        user_rating_object.save()
+
     if "remove" in request.POST:
       for x in request.POST.getlist("remove"):
         song = Song.objects.get(name = x)
