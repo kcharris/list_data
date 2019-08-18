@@ -40,3 +40,14 @@ body {
   margin: initial;
   background-color: white;
 }
+.item_list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: fit-content;
+  background-color: black;
+  grid-gap: 2px;
+}
+.item_list div {
+  margin: initial;
+  background-color: white;
+}

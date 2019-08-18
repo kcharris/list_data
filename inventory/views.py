@@ -50,11 +50,6 @@ class AccountItemList(View):
     else:
       return HttpResponseRedirect(reverse("login"))
   def post(self, request):
-    if "remove" in request.POST:
-      for x in request.POST.getlist("remove"):
-        song = Song.objects.get(name = x)
-        song.users.remove(request.user)
-        UserRating.objects.filter(user = request.user, song = song).delete()
     if "new_rating" in request.POST:
       rating = request.POST.getlist("new_rating")
       user_songs = request.POST.getlist('user_songs')
@@ -64,6 +59,11 @@ class AccountItemList(View):
         user_rating_object = UserRating.objects.get(user = request.user, song = Song.objects.get(name = user_songs[x]))
         user_rating_object.rating = rating[x]
         user_rating_object.save()
+    if "remove" in request.POST:
+      for x in request.POST.getlist("remove"):
+        song = Song.objects.get(name = x)
+        song.users.remove(request.user)
+        UserRating.objects.filter(user = request.user, song = song).delete()
 
     return HttpResponseRedirect(reverse("accounts_item_list"))
 
@@ -87,4 +87,6 @@ class UserList(View):
 class Account(View):
   def get(self, request):
     user = request.user
+    if not user.is_authenticated:
+      return HttpResponseRedirect(reverse("login"))
     return render(request, "inventory/accounts.html", {"user" : user})

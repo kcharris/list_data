@@ -11,8 +11,10 @@
     <div class = 'login'><a href= "{% url 'login' %}">Login</a></div>
     <div class = "register"><a href= "{% url 'register' %}">Create Account</a></div>
     {% endif %}
-    <div class = "item_list"><a href= "{% url 'item_list' %}">Music database</a></div>
+    <div class = "nav_item_list"><a href= "{% url 'item_list' %}">Music database</a></div>
+    {% if request.user.is_authenticated %}
     <div class = "accounts_item_list"><a href= "{% url 'accounts_item_list' %}">{{request.user}}'s list</a></div>
+    {% endif %}
     <div class = "users"><a href= "{% url 'users' %}">List of users</a></div>
 </div>
 {% block content %}

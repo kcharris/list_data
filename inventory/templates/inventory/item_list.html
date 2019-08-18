@@ -11,27 +11,26 @@
 <form action = "../item_list/" method= "POST">
   {% csrf_token %}
 <input type = "submit" value = "Modify selected?">
-<table>
-  <tr>
-    <th>Songs</th>
-    <th>Rating</th>
-    <th>Delete?</th>
-    {% if is_auth == True %}
-    <th>Add to account?</th>
-    {% endif %}
-  </tr>
+<div class = "item_list">
+
+  <div>Songs</div>
+  <div>Rating</div>
+  <div>Delete?</div>
+  <div>Add to account?</div>
+
   {% for song in songs %}
-  <tr>
-    <td>{{ song.name }}</td>
-    <td>{{ song.rating }}</td>
-    <td><input type= "checkbox" name = "delete" value = "{{ song.name }}" ></td>
-    {% if is_auth == True and song not in usersongs %}
-    <td><input type= "checkbox" name = "add" value = "{{ song.name }}"></td>
-    {% elif is_auth == True %}
-    <td>added</td>
-    {% endif %}
-  </tr>
+  <div>{{ song.name }}</div>
+  <div>{{ song.rating }}</div>
+  <div><input type= "checkbox" name = "delete" value = "{{ song.name }}" ></div>
+  {% if is_auth == True and song not in usersongs %}
+  <div><input type= "checkbox" name = "add" value = "{{ song.name }}"></div>
+  {% elif is_auth == True %}
+  <div>added</div>
+  {% else %}
+  <div>N/A</div>
+  {% endif %}
+
   {% endfor %}
-</table>
+</div class = "item_list">
 </form>
 {% endblock %}
