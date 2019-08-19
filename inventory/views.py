@@ -15,7 +15,12 @@ def index(request):
 def item_list(request):  
   if request.method == "GET":
     song_form = SongForm()
-    songs = Song.objects.all()
+    search_form = request.GET
+    if 'q' in search_form:
+      songs = (Song.objects.filter(name__startswith= search_form['q'])).order_by('name')
+    else:
+      songs = Song.objects.all().order_by("name")
+    
     if request.user.is_authenticated:
       is_auth = True
       usersongs = request.user.songs.all()
