@@ -19,7 +19,7 @@
       <input type="hidden" name="user_songs" value="{{ x.song }}">
     </div>
     <div>
-      <input type="number" name="priority" value="{{ x.priority }}">
+      <input type="number" name="priority" min="0" max="100" value="{{ x.priority }}">
     </div>
     {% endif %}
     {% endfor %}
