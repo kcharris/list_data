@@ -8,12 +8,13 @@ from django.contrib.auth.models import User
 from .models import Song, Album, Artist, SongForm, UserRating
 
 # Create your views here.
-def index(request):
+class Index(View):
+  def get(self, request):
   
-  return render(request, "inventory/index.html")
+    return render(request, "inventory/index.html")
 
-def item_list(request):  
-  if request.method == "GET":
+class ItemList(View):  
+  def get(self, request):
     song_form = SongForm()
     search_form = request.GET
     if 'q' in search_form:
@@ -28,7 +29,7 @@ def item_list(request):
       is_auth = False
       usersongs = []
     return render(request, "inventory/item_list.html", {"songs" : songs, "is_auth": is_auth, "usersongs": usersongs, "song_form": song_form})
-  if request.method == "POST":
+  def post(self, request):
     form = request.POST
     if "delete" in form:
       for x in form.getlist("delete"):
@@ -41,10 +42,11 @@ def item_list(request):
         UserRating.objects.create(user = request.user, song = song, rating = song.rating)
     return HttpResponseRedirect(reverse("item_list"))
 
-def confirmation(request):
-  song_form = SongForm(request.POST)
-  song_form.save()
-  return HttpResponseRedirect(reverse("item_list"))
+class Confirmation(View):
+  def post(self, request):
+    song_form = SongForm(request.POST)
+    song_form.save()
+    return HttpResponseRedirect(reverse("item_list"))
 
 class AccountItemList(View):
   def get(self, request):
