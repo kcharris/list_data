@@ -1,0 +1,10 @@
+{% extends "music/nav_bar.html" %}
+
+{% block content %}
+<form method= "post">
+{% csrf_token %}
+{{ form }}
+<br>
+<input type="submit" value= "Save">
+</form>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "music/nav_bar.html" %}
+
+{% block content %}
+<p>Add a song here</p>
+<form action= "{% url 'confirmation' %}" method="POST">
+  {% csrf_token %}
+  <div>{{ song_form }}</div>
+  <input type='submit' value= 'OK'>
+</form>
+<form action = "{% url 'item_list' %}" method ="GET">
+  {% csrf_token %}
+<input type="search" name = "q" placeholder="Song...">
+<input type= "submit" value= "Search">
+</form>
+<p>List of songs</p>
+<form action = "../item_list/" method= "POST">
+  {% csrf_token %}
+<input type = "submit" value = "Modify selected?">
+<div class = "item_list">
+
+  <div>Songs</div>
+  <div>Rating</div>
+  <div>Delete?</div>
+  <div>Add to account?</div>
+
+  {% for song in songs %}
+  <div>{{ song.name }}</div>
+  <div>{{ song.rating }}</div>
+  <div><input type= "checkbox" name = "delete" value = "{{ song.name }}" ></div>
+  {% if is_auth == True and song not in usersongs %}
+  <div><input type= "checkbox" name = "add" value = "{{ song.name }}"></div>
+  {% elif is_auth == True %}
+  <div>added</div>
+  {% else %}
+  <div>N/A</div>
+  {% endif %}
+
+  {% endfor %}
+</div class = "item_list">
+</form>
+{% endblock %}
