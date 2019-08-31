@@ -7,16 +7,16 @@
   <div>{{ song_form }}</div>
   <input type='submit' value= 'OK'>
 </form>
-<form action = "{% url 'item_list' %}" method ="GET">
+<form action = "{% url 'music_list' %}" method ="GET">
   {% csrf_token %}
 <input type="search" name = "q" placeholder="Song...">
 <input type= "submit" value= "Search">
 </form>
 <p>List of songs</p>
-<form action = "../item_list/" method= "POST">
+<form action = "../music_list/" method= "POST">
   {% csrf_token %}
 <input type = "submit" value = "Modify selected?">
-<div class = "item_list">
+<div class = "music_list">
 
   <div>Songs</div>
   <div>Rating</div>
@@ -36,6 +36,6 @@
   {% endif %}
 
   {% endfor %}
-</div class = "item_list">
+</div class = "music_list">
 </form>
 {% endblock %}

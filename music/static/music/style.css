@@ -29,25 +29,25 @@ body {
 .table div {
   text-align: center;
 }
-.account_item_list {
+.account_music_list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   width: fit-content;
   background-color: black;
   grid-gap: 2px;
 }
-.account_item_list div {
+.account_music_list div {
   margin: initial;
   background-color: white;
 }
-.item_list {
+.music_list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   width: fit-content;
   background-color: black;
   grid-gap: 2px;
 }
-.item_list div {
+.music_list div {
   margin: initial;
   background-color: white;
 }

@@ -30,7 +30,7 @@ class SongModelTests(TestCase):
         """
         c = Client()
         self.assertRedirects(c.post('/music/confirmation/',
-                                    {'name': 'seventeen', 'rating': '1'}), reverse('item_list'))
+                                    {'name': 'seventeen', 'rating': '1'}), reverse('music_list'))
 
     def test_over_max(self):
         """
@@ -76,7 +76,7 @@ class AccountItemListViewTest(TestCase):
     def test_user_signed_in(self):
         c = Client()
         c.login(username="testuser", password="testpassword")
-        response = c.get("/music/accounts/item_list/")
+        response = c.get("/music/accounts/music_list/")
         self.assertEqual(response.resolver_match.func.__name__,
                          AccountItemList.as_view().__name__)
 
