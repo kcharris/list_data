@@ -23,6 +23,6 @@ urlpatterns = [
     path("accounts/", views.Account.as_view(), name = 'accounts'),
     path("accounts/register/", views.CreateAccount.as_view(), name = "register"),
     path("users/", views.UserList.as_view(), name = "users"),
-    path('list-data/', views.ListData.as_view(), name = "index" ),
-    path('list-data/music/', include('music.urls')),
+    path('', views.ListData.as_view(), name = "index" ),
+    path('music/', include('music.urls')),
 ]

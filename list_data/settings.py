@@ -55,7 +55,7 @@ ROOT_URLCONF = 'list_data.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["list_data/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,5 +125,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #UserLogin
-LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/music/"
-LOGOUT_REDIRECT_URL = "http://127.0.0.1:8000/music/"
+LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/"
+LOGOUT_REDIRECT_URL = "http://127.0.0.1:8000/"

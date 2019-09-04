@@ -11,7 +11,7 @@ from .models import Song, Album, Artist, SongForm, UserRating
 class Music(View):
   def get(self, request):
   
-    return render(request, "music.html")
+    return render(request, "music/music.html")
 
 class Songs(View):  
   def get(self, request):

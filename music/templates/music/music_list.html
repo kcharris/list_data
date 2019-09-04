@@ -13,7 +13,7 @@
 <input type= "submit" value= "Search">
 </form>
 <p>List of songs</p>
-<form action = "../music_list/" method= "POST">
+<form action = "{% url 'music_list' %}" method= "POST">
   {% csrf_token %}
 <input type = "submit" value = "Modify selected?">
 <div class = "music_list">

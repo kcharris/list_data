@@ -8,19 +8,19 @@ from django.contrib.auth.models import User
 class ListData(View):
   def get(self, request):
 
-    return render(request, "list_data.html")
+    return render(request, "list_data/index.html")
 
 class Account(View):
   def get(self, request):
     user = request.user
     if not user.is_authenticated:
       return HttpResponseRedirect(reverse("login"))
-    return render(request, "music/accounts.html", {"user" : user})
+    return render(request, "list_data/accounts.html", {"user" : user})
 
 class UserList(View):
   def get(self, request):
     users = User.objects.all()
-    return render(request, "music/users.html", {"users" : users})
+    return render(request, "list_data/users.html", {"users" : users})
 
 class CreateAccount(View):
   def get(self, request):
