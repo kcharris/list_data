@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-from .views import AccountItemList
+from .views import AccountMusicList
 from .models import Song, Album, UserRating
 # Create your tests here.
 
@@ -76,9 +76,9 @@ class AccountItemListViewTest(TestCase):
     def test_user_signed_in(self):
         c = Client()
         c.login(username="testuser", password="testpassword")
-        response = c.get("/music/accounts/music_list/")
+        response = c.get("/music/accounts_list/")
         self.assertEqual(response.resolver_match.func.__name__,
-                         AccountItemList.as_view().__name__)
+                         AccountMusicList.as_view().__name__)
 
 
 class UserRatingModel(TestCase):
