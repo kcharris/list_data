@@ -18,12 +18,12 @@ class Song(models.Model):
   rating = models.IntegerField(blank = True, null = True, validators= [MaxValueValidator(100), MinValueValidator(0)])
   users = models.ManyToManyField(User, related_name = "songs", related_query_name= "song")
   album = models.ForeignKey(Album, null = True, on_delete= models.SET_NULL)
-  user_rating = models.ManyToManyField(User, through= "UserRating")
+  user_rating = models.ManyToManyField(User, through= "UserSong")
 
   def __str__(self):
     return self.name
 
-class UserRating(models.Model):
+class UserSong(models.Model):
   song = models.ForeignKey(Song, on_delete= models.CASCADE)
   user = models.ForeignKey(User, on_delete= models.CASCADE)
   rating = models.IntegerField(blank = True, null = True, validators= [MaxValueValidator(100), MinValueValidator(0)])

@@ -27,7 +27,7 @@
   <div>{{ song.name }}</div>
   <div>{{ song.rating }}</div>
   <div><input type= "checkbox" name = "delete" value = "{{ song.name }}" ></div>
-  {% if is_auth == True and song not in usersongs %}
+  {% if is_auth == True and song not in UserSongs %}
   <div><input type= "checkbox" name = "add" value = "{{ song.name }}"></div>
   {% elif is_auth == True %}
   <div>added</div>

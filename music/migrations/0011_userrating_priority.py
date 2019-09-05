@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='userrating',
+            model_name='UserRating',
             name='priority',
             field=models.IntegerField(blank=True, default=0, validators=[django.core.validators.MaxValueValidator(100), django.core.validators.MinValueValidator(0)]),
         ),

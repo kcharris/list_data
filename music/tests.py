@@ -6,7 +6,7 @@ from django.urls import reverse
 
 
 from .views import AccountMusicList
-from .models import Song, Album, UserRating
+from .models import Song, Album, UserSong
 # Create your tests here.
 
 
@@ -81,18 +81,18 @@ class AccountItemListViewTest(TestCase):
                          AccountMusicList.as_view().__name__)
 
 
-class UserRatingModel(TestCase):
+class UserSongModel(TestCase):
     def setUp(self):
         User.objects.create_user(
             username="testuser", password="testpassword").save()
         for x in range(5):
             song = Song.objects.create(name= str(x))
             song.user = User.objects.get(username="testuser")
-            UserRating.objects.create(user=song.user, song=song)
+            UserSong.objects.create(user=song.user, song=song)
 
     def test_change_user_rating(self):
         song = Song.objects.get(name = "1")
-        rating = UserRating.objects.get(song=song)
+        rating = UserSong.objects.get(song=song)
         rating.rating = 99
         rating.save()
-        self.assertEqual(99, UserRating.objects.get(song=song).rating)
+        self.assertEqual(99, UserSong.objects.get(song=song).rating)
