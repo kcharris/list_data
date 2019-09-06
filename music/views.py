@@ -66,6 +66,7 @@ class AccountMusicList(View):
         user_rating_object = UserSong.objects.get(user = request.user, song = Song.objects.get(name = user_songs[x]))
         user_rating_object.rating = rating[x]
         user_rating_object.save()
+
     if "priority" in request.POST:
       priority = request.POST.getlist("priority")
       user_songs = request.POST.getlist('user_songs')
@@ -75,6 +76,14 @@ class AccountMusicList(View):
         user_rating_object = UserSong.objects.get(user= request.user, song = Song.objects.get(name = user_songs[x]))
         user_rating_object.priority = priority[x]
         user_rating_object.save()
+
+    if "completed" in request.POST:
+      user_songs = request.POST.getlist('user_songs')
+      completed = request.POST.getlist("completed")
+      for x in range(len(completed)):
+        usersong = UserSong.objects.get(user = request.user, song = Song.objects.get(name = user_songs[x]))
+        usersong.completed = completed[x].upper()
+        usersong.save()
 
     if "remove" in request.POST:
       for x in request.POST.getlist("remove"):

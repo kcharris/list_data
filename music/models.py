@@ -28,6 +28,7 @@ class UserSong(models.Model):
   user = models.ForeignKey(User, on_delete= models.CASCADE)
   rating = models.IntegerField(blank = True, null = True, validators= [MaxValueValidator(100), MinValueValidator(0)])
   priority = models.IntegerField(blank = True, default = 0, validators=[MaxValueValidator(100), MinValueValidator(0)])
+  completed = models.CharField(max_length = 1, default = "N")
 
 
 

@@ -9,6 +9,7 @@
     <div>Song</div>
     <div>Rating</div>
     <div>Priority</div>
+    <div>Completed Y/N</div>
     <div>Remove?</div>
     {% for song in songs %}
     <div>{{ song.name }}</div>
@@ -20,6 +21,9 @@
     </div>
     <div>
       <input type="number" name="priority" min="0" max="100" value="{{ x.priority }}">
+    </div>
+    <div>
+      <input type= "text" name= "completed" value= "{{ x.completed }}" size = "3" maxlength="1" pattern="[nyNY]">
     </div>
     {% endif %}
     {% endfor %}
