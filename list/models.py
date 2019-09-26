@@ -8,8 +8,21 @@ class Tag(models.Model):
 
 class Item(models.Model):
   name = models.CharField(blank = False, max_length = 100)
+  TagValue = models.ManyToManyField(Tag, through= "ItemTagValue")
+
+class ItemTagValue(models.Model):
+  tag = models.ForeignKey(Tag, on_delete= models.CASCADE)
+  item = models.ForeignKey(Item, on_delete= models.CASCADE)
+  value = models.CharField(blank = True, null = True)
+
+  def __str__(self):
+    return self.value
 
 class List(models.Model):
+  #In order for each item in the list to have a required name. The item object will use it's name like the the first tag in a row of tags.
+  #For example ["Name"str][tag     ][tag     ][tag     ]
+  #            [Item     ][item.tag][item.tag][item.tag]
   name = models.CharField(blank = False, unique = True, max_length= 60)
   items = models.ManyToManyField(Item, related_name = "items")
   tags = models.ManyToManyField(Tag, related_name= "tags")
+  users = models.ManyToManyField(User, related_name= "lists")
