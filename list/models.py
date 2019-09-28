@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 
@@ -8,7 +9,7 @@ class Tag(models.Model):
 
 class Item(models.Model):
   name = models.CharField(blank = False, max_length = 100)
-  TagValue = models.ManyToManyField(Tag, through= "ItemTagValue")
+  TagValues = models.ManyToManyField(Tag, through= "ItemTagValue")
 
 class ItemTagValue(models.Model):
   tag = models.ForeignKey(Tag, on_delete= models.CASCADE)
@@ -25,4 +26,7 @@ class List(models.Model):
   name = models.CharField(blank = False, unique = True, max_length= 60)
   items = models.ManyToManyField(Item, related_name = "items")
   tags = models.ManyToManyField(Tag, related_name= "tags")
-  users = models.ManyToManyField(User, related_name= "lists")
+  users = models.ManyToManyField(User)
+
+  def get_absolute_url(self):
+    return reverse('list-detail', kwargs={'pk': self.pk})

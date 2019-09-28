@@ -25,4 +25,5 @@ urlpatterns = [
     path("users/", views.UserList.as_view(), name = "users"),
     path('', views.ListData.as_view(), name = "index" ),
     path('music/', include('music.urls')),
+    path('list/', include('list.urls'))
 ]
