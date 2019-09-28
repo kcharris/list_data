@@ -11,6 +11,9 @@ class Item(models.Model):
   name = models.CharField(blank = False, max_length = 100)
   TagValues = models.ManyToManyField(Tag, through= "ItemTagValue")
 
+  def __str__(self):
+    return self.name
+
 class ItemTagValue(models.Model):
   tag = models.ForeignKey(Tag, on_delete= models.CASCADE)
   item = models.ForeignKey(Item, on_delete= models.CASCADE)
@@ -29,4 +32,4 @@ class List(models.Model):
   users = models.ManyToManyField(User)
 
   def get_absolute_url(self):
-    return reverse('list-detail', kwargs={'pk': self.pk})
+    return reverse('list-detail', kwargs={'pk': self.pk}) # modify urls to comply

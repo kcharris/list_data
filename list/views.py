@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import *
+from django.urls import reverse_lazy
+from .models import List
 
 # Create your views here.
 class ListsList(ListView):
@@ -17,4 +18,4 @@ class ListUpdate(UpdateView):
 
 class ListDelete(DeleteView):
   model = List
-  fields = ["name"]
+  success_url = reverse_lazy('lists-list')
