@@ -1,21 +1,28 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'music/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'lists/style.css' %}">
 
 <div class="Title">Welcome to LIST</div>
-<div class= "navbar">
-    <div class = "index"><a href= "{% url 'index' %}">Homepage</a></div>
-    <div class = "account"><a href= "{% url 'accounts' %}">Account Page</a></div>
-    {% if request.user.is_authenticated %}
-    <div class = "logout"><a href= "{% url 'logout' %}">Logout</a></div>
-    {% else %}
-    <div class = 'login'><a href= "{% url 'login' %}">Login</a></div>
-    <div class = "register"><a href= "{% url 'register' %}">Create Account</a></div>
-    {% endif %}
-    <div class = "nav_music_list"><a href= "{% url 'music_list' %}">Music database</a></div>
-    {% if request.user.is_authenticated %}
-    <div class = "accounts_music_list"><a href= "{% url 'accounts_music_list' %}">{{request.user}}'s list</a></div>
-    {% endif %}
-    <div class = "users"><a href= "{% url 'users' %}">List of users</a></div>
+<div class="navbar_holder">
+    <div class="navbar_block1"></div>
+    <div class="navbar_block2">
+        <div class="navbar">
+            <div class="index"><a href="{% url 'index' %}">Homepage</a></div>
+            <div class="account"><a href="{% url 'accounts' %}">Account Page</a></div>
+            {% if request.user.is_authenticated %}
+            <div class="logout"><a href="{% url 'logout' %}">Logout</a></div>
+            {% else %}
+            <div class='login'><a href="{% url 'login' %}">Login</a></div>
+            <div class="register"><a href="{% url 'register' %}">Create Account</a></div>
+            {% endif %}
+            <div class="nav_music_list"><a href="{% url 'music_list' %}">Music database</a></div>
+            {% if request.user.is_authenticated %}
+            <div class="accounts_music_list"><a href="{% url 'accounts_music_list' %}">{{request.user}}'s list</a></div>
+            {% endif %}
+            <div class="users"><a href="{% url 'users' %}">List of users</a></div>
+            <div class="invetory"><a href="{% url 'inventory' %}">Inventory</a></div>
+        </div>
+    </div>
+    <div class="navbar_block3"></div>
 </div>
 {% block content %}
 {% endblock %}

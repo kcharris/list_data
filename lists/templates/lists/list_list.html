@@ -1,0 +1,10 @@
+{% extends 'list_data/nav_bar.html' %}
+
+{% block content %}
+  <h2>Lists</h2>
+  <ul>
+    {% for list in object_list %}
+      <li> {{ list.name }} </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
