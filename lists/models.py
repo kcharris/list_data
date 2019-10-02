@@ -7,6 +7,9 @@ from django.urls import reverse
 class Tag(models.Model):
   name = models.CharField(blank = False, max_length = 20)
 
+  def __str__(self):
+    return self.name
+
 class Item(models.Model):
   name = models.CharField(blank = False, max_length = 100)
   TagValues = models.ManyToManyField(Tag, through= "ItemTagValue")
@@ -33,3 +36,6 @@ class List(models.Model):
 
   def get_absolute_url(self):
     return reverse('list-detail', kwargs={'pk': self.pk}) # modify urls to comply
+
+  def __str__(self):
+    return self.name
