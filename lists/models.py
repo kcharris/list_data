@@ -30,8 +30,8 @@ class List(models.Model):
   #For example ["Name"str][tag     ][tag     ][tag     ]
   #            [Item     ][item.tag][item.tag][item.tag]
   name = models.CharField(blank = False, unique = True, max_length= 60)
-  items = models.ManyToManyField(Item, related_name = "items")
-  tags = models.ManyToManyField(Tag, related_name= "tags")
+  items = models.ManyToManyField(Item, related_name = "lists", related_query_name= "list")
+  tags = models.ManyToManyField(Tag, related_name= "lists", related_query_name= "list")
   users = models.ManyToManyField(User)
 
   def get_absolute_url(self):

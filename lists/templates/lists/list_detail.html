@@ -1,1 +1,26 @@
+{% extends 'list_data/nav_bar.html' %}
+
+{% block content %}
+
 <h1>{{ object.name }}</h1>
+<h1>{{ items }}</h1>
+<div>
+  <div>Name</div>
+  {% for tag in tags %}
+  <div>{{ tag.name }}</div>
+  {% endfor %}
+</div>
+{% for item in items %}
+<div>
+  <div>{{ item.name }}</div>
+  {% for tag in objects.tags.all %}
+  {% for tagvalue in item.tagvalues.all %}
+  {% if tag in tagvalue and item in tagvalue %}
+  <div>{{ tagvalue }}</div>
+  {% endif %}
+  {% endfor %}
+  {% endfor %}
+</div>
+{% endfor %}
+
+{% endblock %}
