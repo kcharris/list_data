@@ -6,10 +6,6 @@ from .models import List, Item, Tag, ItemTagValue
 
 # Create your views here.
 
-class InventoryView(View):
-  def get(self, request):
-    return render(request, 'lists/inventory.html')
-
 class ListsListView(ListView):
   model = List
 
@@ -17,17 +13,17 @@ class ListCreateView(CreateView):
   model = List
   fields = ["name"]
 
-  success_url = reverse_lazy('inventory')
+  success_url = reverse_lazy('list-list')
 
 class ListUpdateView(UpdateView):
   model = List
   fields = ["name"]
 
-  success_url = reverse_lazy("inventory")
+  success_url = reverse_lazy("list-list")
 
 class ListDeleteView(DeleteView):
   model = List
-  success_url = reverse_lazy('inventory')
+  success_url = reverse_lazy('list-list')
 
 class ListDetailView(View):
   def get(self, request, **kwargs):

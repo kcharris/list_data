@@ -2,8 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', InventoryView.as_view(), name = 'inventory'),
-    path('lists/', ListsListView.as_view(), name = "lists-list"),
+    path('list/', ListsListView.as_view(), name = "lists-list"),
     path('list/add/', ListCreateView.as_view(), name = 'list-add'),
     path('list/<int:pk>/update', ListUpdateView.as_view(), name = 'list-update'),
     path('list/<int:pk>/delete/', ListDeleteView.as_view(), name = 'list-delete'),
