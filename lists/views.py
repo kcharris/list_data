@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, View, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import List, Item
+from .models import List, Item, Tag, ItemTagValue
 
 # Create your views here.
 
@@ -31,7 +31,13 @@ class ListDeleteView(DeleteView):
 
 class ListDetailView(View):
   def get(self, request, **kwargs):
-    return render(request, "lists/list_detail.html")
+    pk = kwargs['pk']
+    item_list = List.objects.get( pk = pk )
+    items = Item.objects.filter( list = item_list )
+    tags = Tag.objects.filter( list = item_list)
+    tag_values = ItemTagValue.objects.filter(inventory = item_list)
+    
+    return render(request, "lists/list_detail.html", {'item_list': item_list, 'items':items, 'tags': tags, 'tag_values': tag_values})
 
   
 

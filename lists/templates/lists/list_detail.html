@@ -2,8 +2,7 @@
 
 {% block content %}
 
-<h1>{{ object.name }}</h1>
-<h1>{{ items }}</h1>
+<h1>{{ item_list.name }}</h1>
 <div>
   <div>Name</div>
   {% for tag in tags %}
@@ -13,10 +12,10 @@
 {% for item in items %}
 <div>
   <div>{{ item.name }}</div>
-  {% for tag in objects.tags.all %}
-  {% for tagvalue in item.tagvalues.all %}
-  {% if tag in tagvalue and item in tagvalue %}
-  <div>{{ tagvalue }}</div>
+  {% for tag in tags %}
+  {% for tag_value in tag_values %}
+  {% if tag == tag_value.tag and item == tag_value.item %}
+  <div>{{ tag_value.value }}</div>
   {% endif %}
   {% endfor %}
   {% endfor %}
