@@ -10,12 +10,12 @@ from .models import List
 class ListCreateViewTests(TestCase):
   def setUp(self):
     User.objects.create_user(username ='testuser', password= 'password')
-    Client().post('/login/', {'username': 'testuser', 'password': 'password'})
   def test_user_create_list(self):
     """
     tests whenever a list is created it is connected to the user that created it
     """
     c = Client()
-    c.post('/list/add/', {'name': 'testname', 'users': User.objects.get(username = "testuser")})
+    c.login(username= 'testuser', password = 'password')
+    c.post('/inventory/list/add/', {'name': 'testname'})
 
-    self.assertEqual(List.objects.get(name = 'testname'), List.objects.get(users = 'testuser'))
+    self.assertEqual(List.objects.get(name = 'testname'), List.objects.get(users__username = 'testuser'))
