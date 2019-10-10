@@ -1,5 +1,13 @@
+{% extends 'list_data/nav_bar.html' %}
+
+
+{% block content %}
+
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" value="Ok">
+  <a href= "{% url 'tag-add' %}">Add a Tag</a>
+  <input type="submit" value="Add List">
 </form>
+
+{% endblock %}

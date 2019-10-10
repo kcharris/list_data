@@ -71,3 +71,22 @@ body {
   margin: initial;
   background-color: white;
 }
+.item_grid {
+  display: grid;
+  margin: auto;
+  width: fit-content;
+  grid-template-rows: 1fr;
+  background-color: black;
+  grid-gap: 2px;
+}
+.item_grid div {
+  display: grid;
+  margin: initial;
+  background-color: tan;
+  width:fit-content;
+  grid-auto-flow: column;
+  grid-gap: 2px;
+}
+.item_grid div div {
+  background-color: white;
+}

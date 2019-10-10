@@ -7,6 +7,5 @@ urlpatterns = [
     path('list/<int:pk>/update', ListUpdateView.as_view(), name = 'list-update'),
     path('list/<int:pk>/delete/', ListDeleteView.as_view(), name = 'list-delete'),
     path('list/<int:pk>/detail/', ListDetailView.as_view(), name = 'list-detail'),
-    path('tag/add/', TagCreateView.as_view(), name = 'tag-add'),
-    path('tag/<int:pk>/update', TagUpdateView.as_view(), name = 'tag-update')
+    path('tag/add/', TagCreateView.as_view(), name = 'tag-add')
 ]

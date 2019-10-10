@@ -3,24 +3,24 @@
 {% block content %}
 
 <h1>{{ item_list.name }}</h1>
-<div>
-  <div>Name</div>
-  <div>{{ users }}</div>
-  {% for tag in tags %}
-  <div>{{ tag.name }}</div>
+<div class="item_grid">
+  <div class="tags">
+    <div>Name</div>
+    {% for tag in tags %}
+    <div>{{ tag.name }}</div>
+    {% endfor %}
+  </div>
+  {% for item in items %}
+  <div class = "items">
+    <div>{{ item.name }}</div>
+    {% for tag in tags %}
+    {% for tag_value in tag_values %}
+    {% if tag == tag_value.tag and item == tag_value.item %}
+    <div>{{ tag_value.value }}</div>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+  </div>
   {% endfor %}
 </div>
-{% for item in items %}
-<div>
-  <div>{{ item.name }}</div>
-  {% for tag in tags %}
-  {% for tag_value in tag_values %}
-  {% if tag == tag_value.tag and item == tag_value.item %}
-  <div>{{ tag_value.value }}</div>
-  {% endif %}
-  {% endfor %}
-  {% endfor %}
-</div>
-{% endfor %}
-
 {% endblock %}

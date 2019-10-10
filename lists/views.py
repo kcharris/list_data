@@ -11,7 +11,7 @@ class ListsListView(ListView):
 
 class ListCreateView(CreateView):
   model = List
-  fields = ["name"]
+  fields = ["name", "tags"]
 
   def form_valid(self, form):
     self.object = form.save()
@@ -21,7 +21,7 @@ class ListCreateView(CreateView):
 
 class ListUpdateView(UpdateView):
   model = List
-  fields = ["name"]
+  fields = ["name", "tags", "items"]
 
   success_url = reverse_lazy("lists-list")
 
@@ -35,7 +35,7 @@ class ListDetailView(View):
     item_list = List.objects.get( pk = pk )
     items = Item.objects.filter( list = item_list )
     tags = Tag.objects.filter( list = item_list)
-    tag_values = ItemTagValue.objects.filter(inventory = item_list)
+    tag_values = ItemTagValue.objects.filter(list = item_list)
     users = item_list.users.all()
     
     return render(request, "lists/list_detail.html", {'item_list': item_list, 'items':items, 'tags': tags, 'tag_values': tag_values, 'users': users})
