@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.views.generic import ListView, View, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from .models import List, Item, Tag, ItemTagValue
 
 # Create your views here.
@@ -40,19 +40,22 @@ class ListDetailView(View):
     
     return render(request, "lists/list_detail.html", {'item_list': item_list, 'items':items, 'tags': tags, 'tag_values': tag_values, 'users': users})
 
-class TagCreateView(CreateView):
-  model = Tag
-  fields = ["name"]
-  success_url = reverse_lazy('lists-list')
+class TagAddView(View):
+  def get(self, request, **kwargs):
+    item_list = List.objects.get(pk = kwargs['pk'])
 
-class TagUpdateView(UpdateView):
-  model = Tag
-  fields = ['name']
-  success_url = reverse_lazy('lists-list')
+    return render(request, 'lists/tag_add.html', {'item_list': item_list })
 
-class TagDeleteView(DeleteView):
-  model = Tag
-  success_url = reverse_lazy("lists-list")
+  def post(self, request, **kwargs):
+    name = request.POST['name']
+    item_list = List.objects.get(pk = kwargs['pk'])
+    if Tag.objects.filter(name = name).count == 0:
+      Tag.objects.create(name = name)
+    if Tag.objects.get(name = name) not in item_list.tags.all():
+      item_list.tags.add(Tag.objects.get(name = name))
+
+    return HttpResponseRedirect(reverse("list-detail", args= [kwargs['pk']]))      
+
 
   
 

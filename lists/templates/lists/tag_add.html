@@ -1,0 +1,10 @@
+{% extends 'list_data/nav_bar.html' %}
+
+{% block content %}
+
+<form method= "POST">  {% csrf_token %}
+  <input type="text" name= "name">
+  <input type="submit" value= "Add Tag">
+</form>
+
+{% endblock %}

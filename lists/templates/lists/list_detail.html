@@ -3,6 +3,7 @@
 {% block content %}
 
 <h1>{{ item_list.name }}</h1>
+<a href="{% url 'tag-add' item_list.pk %}">Add Tag</a>
 <div class="item_grid">
   <div class="tags">
     <div>Name</div>
