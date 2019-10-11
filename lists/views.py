@@ -49,7 +49,7 @@ class TagAddView(View):
   def post(self, request, **kwargs):
     name = request.POST['name']
     item_list = List.objects.get(pk = kwargs['pk'])
-    if Tag.objects.filter(name = name).count == 0:
+    if len(Tag.objects.filter(name = name)) == 0:
       Tag.objects.create(name = name)
     if Tag.objects.get(name = name) not in item_list.tags.all():
       item_list.tags.add(Tag.objects.get(name = name))
