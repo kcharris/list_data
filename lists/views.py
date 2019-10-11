@@ -51,9 +51,13 @@ class TagAddView(View):
     item_list = List.objects.get(pk = kwargs['pk'])
     if len(Tag.objects.filter(name = name)) == 0:
       Tag.objects.create(name = name)
-    if Tag.objects.get(name = name) not in item_list.tags.all():
-      item_list.tags.add(Tag.objects.get(name = name))
-
+    tag = Tag.objects.get(name = name)
+    if tag not in item_list.tags.all():
+      item_list.tags.add(tag)
+    if len(item_list.items.all()) > 0:
+      for item in item_list.items.all():
+        ITV = ItemTagValue.objects.create(tag = tag, item = item)
+        ITV.lists.add(item_list)
     return HttpResponseRedirect(reverse("list-detail", args= [kwargs['pk']]))      
 
 

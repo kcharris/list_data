@@ -19,7 +19,7 @@ class Item(models.Model):
 class ItemTagValue(models.Model):
   tag = models.ForeignKey(Tag, on_delete= models.CASCADE)
   item = models.ForeignKey(Item, on_delete= models.CASCADE)
-  value = models.CharField(blank = True, null = True, max_length= 40)
+  value = models.CharField(blank = True, null = True, max_length= 40, default = "-")
 
   def __str__(self):
     return self.value
