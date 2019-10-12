@@ -4,24 +4,20 @@
 
 <h1>{{ item_list.name }}</h1>
 <a href="{% url 'tag-add' item_list.pk %}">Add Tag</a>
+<a href="{% url 'item-add' item_list.pk %}">Add Item</a>
 <div class="item_grid">
-  <div class="tags">
-    <div>Name</div>
-    {% for tag in tags %}
-    <div>{{ tag.name }}</div>
-    {% endfor %}
-  </div>
-  {% for item in items %}
   <div class = "items">
-    <div>{{ item.name }}</div>
-    {% for tag in tags %}
-    {% for tag_value in tag_values %}
-    {% if tag == tag_value.tag and item == tag_value.item %}
-    <div>{{ tag_value.value }}</div>
-    {% endif %}
+    <div>Name</div>
+    {% for item in items %}
+      <div>{{ item.name }}</div>
+      {% endfor %}
+    </div>
+    {% for value_list in tag_columns %}
+    <div class="tags">
+      {% for value in value_list %}
+      <div>{{ value }}</div>
+      {% endfor %}
+    </div>
     {% endfor %}
-    {% endfor %}
-  </div>
-  {% endfor %}
 </div>
 {% endblock %}

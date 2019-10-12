@@ -35,16 +35,42 @@ class ListDetailView(View):
     item_list = List.objects.get( pk = pk )
     items = Item.objects.filter( list = item_list )
     tags = Tag.objects.filter( list = item_list)
-    tag_values = ItemTagValue.objects.filter(list = item_list)
     users = item_list.users.all()
+    def get_tag_columns(tags, items):
+      """
+      returns a list of organized lists that depend on the order of the objects within the tags and items variables
+      """
+      tag_columns = []
+      count = -1
+      for tag in tags:
+        count += 1
+        tag_columns.append([tag])
+        for item in items:
+          tag_columns[count].append(ItemTagValue.objects.get(tag = tag, item = item))
+      return tag_columns
+    tag_columns = get_tag_columns(tags, items)
     
-    return render(request, "lists/list_detail.html", {'item_list': item_list, 'items':items, 'tags': tags, 'tag_values': tag_values, 'users': users})
+    return render(request, "lists/list_detail.html", {'item_list': item_list, 'items':items, "tag_columns": tag_columns, 'users': users})
+
+class ItemAddView(View):
+  def get(self, request, **kwargs):
+
+    return render(request, "lists/item_add.html")
+
+  def post(self, request, **kwargs):
+    pk = kwargs['pk']
+    new_item = Item.objects.create(name = request.POST['new_item'])
+    item_list = List.objects.get(pk = pk)
+    item_list.items.add(new_item)
+    for tag in item_list.tags.all():
+      item_list.tag_values.add(ItemTagValue.objects.create(item = new_item, tag = tag))
+
+    return HttpResponseRedirect(reverse('list-detail', args=[kwargs['pk']]))
 
 class TagAddView(View):
   def get(self, request, **kwargs):
-    item_list = List.objects.get(pk = kwargs['pk'])
 
-    return render(request, 'lists/tag_add.html', {'item_list': item_list })
+    return render(request, 'lists/tag_add.html')
 
   def post(self, request, **kwargs):
     name = request.POST['name']
