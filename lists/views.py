@@ -67,6 +67,23 @@ class ItemAddView(View):
 
     return HttpResponseRedirect(reverse('list-detail', args=[kwargs['pk']]))
 
+class ItemUpdateView(View):
+  def get(self, request, **kwargs):
+    item = Item.objects.get(pk = kwargs['pk2'])
+    tag_values = ItemTagValue.objects.filter(item = item)
+    
+    return render(request, 'lists/item_update.html', { "item": item, "tag_values": tag_values })
+
+  def post(self, request, **kwargs):
+    item = Item.objects.get(pk = kwargs["pk2"])
+    for x in request.POST:
+      if len(Tag.objects.filter(name = x)) > 0:
+        if len(ItemTagValue.objects.filter(tag__name = x, item = item)) > 0:
+          tag_value = ItemTagValue.objects.get(tag__name = x, item = item)
+          tag_value.value = request.POST[x]
+          tag_value.save()
+    return HttpResponseRedirect(reverse('item-update', args=[kwargs['pk'], kwargs['pk2']]))
+
 class TagAddView(View):
   def get(self, request, **kwargs):
 

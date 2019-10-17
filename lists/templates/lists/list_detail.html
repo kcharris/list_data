@@ -9,7 +9,7 @@
   <div class = "items">
     <div>Name</div>
     {% for item in items %}
-      <div>{{ item.name }}</div>
+      <div><a href="{% url 'item-update' item_list.pk item.pk %}">{{ item.name }}</a></div>
       {% endfor %}
     </div>
     {% for value_list in tag_columns %}
