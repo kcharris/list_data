@@ -6,7 +6,6 @@
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <a href= "{% url 'tag-add' %}">Add a Tag</a>
   <input type="submit" value="Add List">
 </form>
 

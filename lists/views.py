@@ -11,7 +11,7 @@ class ListsListView(ListView):
 
 class ListCreateView(CreateView):
   model = List
-  fields = ["name", "tags"]
+  fields = ["name"]
 
   def form_valid(self, form):
     self.object = form.save()
