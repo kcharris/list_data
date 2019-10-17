@@ -72,7 +72,7 @@ class ItemUpdateView(View):
     item = Item.objects.get(pk = kwargs['pk2'])
     tag_values = ItemTagValue.objects.filter(item = item)
     
-    return render(request, 'lists/item_update.html', { "item": item, "tag_values": tag_values })
+    return render(request, 'lists/item_update.html', { "item": item, "tag_values": tag_values, 'list_pk': kwargs['pk'] })
 
   def post(self, request, **kwargs):
     item = Item.objects.get(pk = kwargs["pk2"])

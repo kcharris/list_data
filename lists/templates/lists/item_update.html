@@ -3,6 +3,7 @@
 {% block content %}
 
 <h2>{{ item.name }}</h2>
+<a href="{% url 'list-detail' list_pk %}">Back to list</a>
 <form method = "POST">{% csrf_token %}
   <input type="submit" value="Make changes">
 {% for tag_value in tag_values %}
