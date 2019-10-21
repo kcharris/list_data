@@ -88,28 +88,7 @@ class ItemDeleteView(View):
   def get(self, request, **kwargs):
 
     Item.objects.get(pk = kwargs['pk2']).delete()
-    return HttpResponseRedirect(reverse('list-detail', args=[kwargs['pk']]))
-
-class TagAddView(View):
-  def get(self, request, **kwargs):
-
-    return render(request, 'lists/tag_add.html')
-
-  def post(self, request, **kwargs):
-    name = request.POST['name'].strip()
-    item_list = List.objects.get(pk = kwargs['pk'])
-    if name != '':
-      if len(Tag.objects.filter(name = name)) == 0:
-        Tag.objects.create(name = name)
-      tag = Tag.objects.get(name = name)
-      if tag not in item_list.tags.all():
-        item_list.tags.add(tag)
-      if len(item_list.items.all()) > 0:
-        for item in item_list.items.all():
-          if len(ItemTagValue.objects.filter(tag = tag, item = item)) < 1:
-            ITV = ItemTagValue.objects.create(tag = tag, item = item)
-            ITV.lists.add(item_list)
-    return HttpResponseRedirect(reverse("list-detail", args= [kwargs['pk']]))      
+    return HttpResponseRedirect(reverse('list-detail', args=[kwargs['pk']]))   
 
 class TagUpdateView(View):
   def get(self, request, **kwargs):
@@ -119,7 +98,7 @@ class TagUpdateView(View):
   def post(self, request, **kwargs):
     item_list = List.objects.get(pk = kwargs['pk'])
     for x in request.POST:
-      if len(Tag.objects.filter(name = x)) > 0:
+      if len(Tag.objects.filter(name = x)) > 0 and x != 'new_tag':
         tag = Tag.objects.get(name = x)
         new_tag_name = request.POST[x].strip()
         if tag.name != new_tag_name and new_tag_name != "":
@@ -130,7 +109,17 @@ class TagUpdateView(View):
               if len(ItemTagValue.objects.filter(tag = new_tag, item = item)) < 1:
                 ITV = ItemTagValue.objects.create(tag = new_tag, item = item)
                 ITV.lists.add(item_list)
-            item_list.tags.add(Tag.objects.get(name = new_tag_name))
+            item_list.tags.add(new_tag)
+      elif x == 'new_tag':
+        new_tag_name2 = request.POST[x].strip()
+        if new_tag_name2 != '':
+          if len(Tag.objects.filter(name = new_tag_name2)) < 1:
+            new_tag2 = Tag.objects.create(name = new_tag_name2)
+            for item in item_list.items.all():
+                if len(ItemTagValue.objects.filter(tag = new_tag2, item = item)) < 1:
+                  ITV = ItemTagValue.objects.create(tag = new_tag2, item = item)
+                  ITV.lists.add(item_list)
+          item_list.tags.add(Tag.objects.get(name = new_tag_name2))
     return HttpResponseRedirect(reverse('tag-update', args=[kwargs['pk']]))
 class TagRemoveView(View):
   def get(self, request, **kwargs):

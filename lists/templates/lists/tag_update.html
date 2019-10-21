@@ -3,11 +3,17 @@
 {% block content %}
 
 <form method="post"> {% csrf_token %}
-<input type="submit" value="Modify Tags">
+<input type="submit" value="Update Tags">
+<div>
+<div>Add a new tag: <input type="text" name="new_tag"></div>
+
+</div>
 {% for tag in item_list.tags.all %}
+<div>
 {{ tag.name }}
 <input type="text" name='{{ tag.name }}' value='{{ tag.name }}'>
 <a href="{% url 'tag-remove' item_list.pk tag.name %}">-remove-</a>
+</div>
 {% endfor %}
 </form>
 {% endblock %}
