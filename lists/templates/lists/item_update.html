@@ -7,8 +7,10 @@
 <form method = "POST">{% csrf_token %}
   <input type="submit" value="Make changes">
 {% for tag_value in tag_values %}
-<div>{{ tag_value.tag }}</div>
+<div>
+  {{ tag_value.tag }}
   <input type="text" value="{{tag_value.value}}" name="{{ tag_value.tag.name }}" >
+</div>
   {% endfor %}
 </form>
 
