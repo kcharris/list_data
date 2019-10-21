@@ -4,7 +4,9 @@
 <h2>Lists</h2>
 <a href= "{% url 'list-add' %}">Create List</a>
 <br>
+<div class="lists">
 {% for list in object_list %}
   <a href = "{% url 'list-detail' list.pk %}"> {{ list.name }} </a>
 {% endfor %}
+</div>
 {% endblock %}

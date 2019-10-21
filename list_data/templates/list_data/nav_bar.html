@@ -6,20 +6,20 @@
     <div class="navbar_block1"></div>
     <div class="navbar_block2">
         <div class="navbar">
-            <div class="index"><a href="{% url 'index' %}">Homepage</a></div>
-            <div class="account"><a href="{% url 'accounts' %}">Account Page</a></div>
+            <div><a href="{% url 'index' %}">Homepage</a></div>
+            <div><a href="{% url 'accounts' %}">Account Page</a></div>
             {% if request.user.is_authenticated %}
-            <div class="logout"><a href="{% url 'logout' %}">Logout</a></div>
+            <div><a href="{% url 'logout' %}">Logout</a></div>
             {% else %}
-            <div class='login'><a href="{% url 'login' %}">Login</a></div>
-            <div class="register"><a href="{% url 'register' %}">Create Account</a></div>
+            <div><a href="{% url 'login' %}">Login</a></div>
+            <div><a href="{% url 'register' %}">Create Account</a></div>
             {% endif %}
-            <div class="nav_music_list"><a href="{% url 'music_list' %}">Music database</a></div>
+            <div><a href="{% url 'music_list' %}">Music database</a></div>
             {% if request.user.is_authenticated %}
-            <div class="accounts_music_list"><a href="{% url 'accounts_music_list' %}">{{request.user}}'s list</a></div>
+            <div><a href="{% url 'accounts_music_list' %}">{{request.user}}'s list</a></div>
             {% endif %}
-            <div class="users"><a href="{% url 'users' %}">List of users</a></div>
-            <div class='lists'><a href = "{% url 'lists-list' %}">Lists</a></div>
+            <div><a href="{% url 'users' %}">List of users</a></div>
+            <div><a href = "{% url 'lists-list' %}">Lists</a></div>
         </div>
     </div>
     <div class="navbar_block3"></div>

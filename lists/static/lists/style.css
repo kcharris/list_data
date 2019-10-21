@@ -99,3 +99,12 @@ body {
   font-weight: bold;
   font-size: 1.25em;
 }
+.lists {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: fit-content;
+  margin: auto;
+  column-gap: 3px;
+  row-gap: 3px;
+
+}
