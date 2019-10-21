@@ -116,13 +116,24 @@ class TagUpdateView(View):
 
     return render(request, 'lists/tag_update.html', {'item_list': item_list})
   def post(self, request, **kwargs):
-
-    return 0
+    item_list = List.objects.get(pk = kwargs['pk'])
+    for x in request.POST:
+      if len(Tag.objects.filter(name = x)) > 0:
+        tag = Tag.objects.get(name = x)
+        if tag.name != request.POST[x]:
+          item_list.tags.remove(tag)
+          if len(Tag.objects.filter(name = request.POST[x])) == 0:
+            new_tag = Tag.objects.create(name = request.POST[x])
+            for item in item_list.items.all():
+              if len(ItemTagValue.objects.filter(tag = new_tag, item = item)) < 1:
+                ITV = ItemTagValue.objects.create(tag = new_tag, item = item)
+                ITV.lists.add(item_list)
+            item_list.tags.add(Tag.objects.get(name = request.POST[x]))
+    return HttpResponseRedirect(reverse('tag-update', args=[kwargs['pk']]))
 class TagRemoveView(View):
   def get(self, request, **kwargs):
     item_list = List.objects.get(pk = kwargs['pk'])
     tag = Tag.objects.get(name = kwargs['tag'])
-    item_list_tag_values = item_list.tag_values.filter(tag = tag)
     item_list.tags.remove(tag)
     return HttpResponseRedirect(reverse('tag-update', args= [kwargs['pk']]))
 

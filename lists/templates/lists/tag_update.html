@@ -2,7 +2,8 @@
 
 {% block content %}
 
-<form method="post">
+<form method="post"> {% csrf_token %}
+<input type="submit" value="Modify Tags">
 {% for tag in item_list.tags.all %}
 {{ tag.name }}
 <input type="text" name='{{ tag.name }}' value='{{ tag.name }}'>
