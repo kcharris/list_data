@@ -9,6 +9,6 @@ urlpatterns = [
     path('list/<int:pk>/detail/', ListDetailView.as_view(), name = 'list-detail'),
     path('list/<int:pk>/tag/add/', TagAddView.as_view(), name = 'tag-add'),
     path('list/<int:pk>/item/add/', ItemAddView.as_view(), name = 'item-add'),
-    path('list/<int:pk>/item/update/<int:pk2>/', ItemUpdateView.as_view(), name = 'item-update')
-
+    path('list/<int:pk>/item/update/<int:pk2>/', ItemUpdateView.as_view(), name = 'item-update'),
+    path('list/<int:pk>/item/delete/<int:pk2>/', ItemDeleteView.as_view(), name = 'item-delete'),
 ]

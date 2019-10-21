@@ -8,18 +8,24 @@
 <br>
 <a href= "{% url 'list-delete' item_list.pk %}">Delete List</a>
 <div class="item_grid">
-  <div class = "items">
+  <div>
     <div>Name</div>
     {% for item in items %}
       <div><a href="{% url 'item-update' item_list.pk item.pk %}">{{ item.name }}</a></div>
       {% endfor %}
     </div>
     {% for value_list in tag_columns %}
-    <div class="tags">
+    <div>
       {% for value in value_list %}
       <div>{{ value }}</div>
       {% endfor %}
     </div>
     {% endfor %}
+    <div>
+      <div>Delete?</div>
+       {% for item in items %}
+      <div><a href="{% url 'item-delete' item_list.pk item.pk %}">DEL</a></div>
+      {% endfor %}
+    </div>
 </div>
 {% endblock %}

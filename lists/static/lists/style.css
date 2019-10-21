@@ -106,5 +106,16 @@ body {
   margin: auto;
   column-gap: 3px;
   row-gap: 3px;
+  padding-top: 5px;
 
+}
+.item_update{
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ width: fit-content;
+ margin: auto;
+}
+.item_update div {
+  border: 1px solid black;
+  background-color:  rgb(235, 213, 184);
 }

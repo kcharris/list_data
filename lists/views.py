@@ -84,6 +84,12 @@ class ItemUpdateView(View):
           tag_value.save()
     return HttpResponseRedirect(reverse('item-update', args=[kwargs['pk'], kwargs['pk2']]))
 
+class ItemDeleteView(View):
+  def get(self, request, **kwargs):
+
+    Item.objects.get(pk = kwargs['pk2']).delete()
+    return HttpResponseRedirect(reverse('list-detail', args=[kwargs['pk']]))
+
 class TagAddView(View):
   def get(self, request, **kwargs):
 
