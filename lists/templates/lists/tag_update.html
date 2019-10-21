@@ -1,0 +1,12 @@
+{% extends 'list_data/nav_bar.html' %}
+
+{% block content %}
+
+<form method="post">
+{% for tag in item_list.tags.all %}
+{{ tag.name }}
+<input type="text" name='{{ tag.name }}' value='{{ tag.name }}'>
+<a href="{% url 'tag-remove' item_list.pk tag.name %}">-remove-</a>
+{% endfor %}
+</form>
+{% endblock %}

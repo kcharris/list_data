@@ -105,10 +105,24 @@ class TagAddView(View):
       item_list.tags.add(tag)
     if len(item_list.items.all()) > 0:
       for item in item_list.items.all():
-        ITV = ItemTagValue.objects.create(tag = tag, item = item)
-        ITV.lists.add(item_list)
+        if len(ItemTagValue.objects.filter(tag = tag, item = item)) < 1:
+          ITV = ItemTagValue.objects.create(tag = tag, item = item)
+          ITV.lists.add(item_list)
     return HttpResponseRedirect(reverse("list-detail", args= [kwargs['pk']]))      
 
+class TagUpdateView(View):
+  def get(self, request, **kwargs):
+    item_list = List.objects.get(pk = kwargs['pk'])
 
-  
+    return render(request, 'lists/tag_update.html', {'item_list': item_list})
+  def post(self, request, **kwargs):
+
+    return 0
+class TagRemoveView(View):
+  def get(self, request, **kwargs):
+    item_list = List.objects.get(pk = kwargs['pk'])
+    tag = Tag.objects.get(name = kwargs['tag'])
+    item_list_tag_values = item_list.tag_values.filter(tag = tag)
+    item_list.tags.remove(tag)
+    return HttpResponseRedirect(reverse('tag-update', args= [kwargs['pk']]))
 
